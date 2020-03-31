@@ -1,3 +1,5 @@
+
+
 # Genetic Algorithm
 
 This repository contains simple python implementation of genetic algorithm. There heuristic algorithm searches the space for alternative solutions to the problem in order to find the best solutions. 
