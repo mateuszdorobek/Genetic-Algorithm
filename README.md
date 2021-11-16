@@ -16,36 +16,24 @@ In order to solve a problem we need to generate the data that describes the cert
 
 ```python
 class Task:
-    def __init__(self, n=None):
-        self.n = np.random.randint(n, 2 * n)
-        self.W = np.random.randint(10 * n, 20 * n)
-        self.S = np.random.randint(10 * n, 20 * n)
-        self.w = np.round(np.random.random(self.n) * 10 * self.W / self.n, 5)
-        self.s = np.round(np.random.random(self.n) * 10 * self.S / self.n, 5)
-        self.c = np.round(np.random.random(self.n) * self.n, 5)
+  def __init__(self, n=None):
+    self.size = np.random.randint(size, 2 * size)
+    self.Weight_limit = np.random.randint(10 * self.size, 20 * self.size)
+    self.Size_limit = np.random.randint(10 * self.size, 20 * self.size)
+    self.weights = np.random.random(self.n) * 10 * self.Weight_limit / self.n
+    self.sizes = np.random.random(self.n) * 10 * self.Size_limit / self.n
+    self.costs = np.random.random(self.n) * self.n
 ```
-
-`n` - number of all possible items to take
-
-`W` - upper limit for weight of selected items
-
-`S` - upper limit for size of selected items
-
-`w` - vector of item weights 
-
-`s` - vector of item sizes 
-
-`c` - vector of item costs
 
 Example generated task:
 
 ```python
-{'n': 6,
- 'W': 74,
- 'S': 51,
- 'w': [78.24, 116.79, 27.22, 16.37, 18.49, 105.31],
- 's': [14.01, 78.47, 34.49, 20.80, 2.29, 41.89],
- 'c': [1.72, 0.45, 4.49, 4.85, 4.96, 3.69]
+{'size': 6,
+ 'Weight_limit ': 74,
+ 'Size_limit ': 51,
+ 'weights ': [78.24, 116.79, 27.22, 16.37, 18.49, 105.31],
+ 'sizes': [14.01, 78.47, 34.49, 20.80, 2.29, 41.89],
+ 'costs': [1.72, 0.45, 4.49, 4.85, 4.96, 3.69]
 }
 ```
 
@@ -134,14 +122,14 @@ To see how our individual is preforming we need to check what is the total value
 
 ```python
 class Individual:
-    def evaluate(self, task):
-      	W = (self.genome * task.w).sum()
-        S = (self.genome * task.s).sum()
-				C = (self.genome * task.c).sum()
-        if W <= task.W and S <= task.S:
-            return C
-        else:
-            return 0
+  def evaluate(self, task):
+   weight_sum = (self.genome * task.weights).sum()
+   sizes_sum = (self.genome * task.sizes).sum()
+   costs_sum = (self.genome * task.costs).sum()
+   if weight_sum <= task.Weight_limit and sizes_sum <= task.Size_limit:
+     return costs_sum
+   else:
+     return 0
 ```
 
 ## Crossover
